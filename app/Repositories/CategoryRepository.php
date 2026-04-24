@@ -9,6 +9,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function all()
     {
         $categories = Category::all();
+
         return $categories;
     }
 
@@ -17,6 +18,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category = Category::create([
             'name' => $data['name'],
         ]);
+
         return $category;
     }
 
