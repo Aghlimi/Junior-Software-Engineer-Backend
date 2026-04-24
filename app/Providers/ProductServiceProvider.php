@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Repositories\ProductRepository;
+use App\Repositories\ProductRepositoryInterface;
 use App\Services\ProductService;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,13 +14,8 @@ class ProductServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind('ProductRepositoryInterface', function () {
-            return new ProductRepository;
-        });
-
-        $this->app->bind('ProductService', function () {
-            return new ProductService(app('ProductRepositoryInterface'));
-        });
+        $this->app->singleton(ProductRepositoryInterface::class, ProductRepository::class);
+        $this->app->singleton(ProductService::class, fn ($app) => new ProductService($app->make(ProductRepositoryInterface::class)));
     }
 
     /**
