@@ -32,6 +32,11 @@ class ProductsController extends Controller
 
         $product = $this->productService->create($data);
 
+        if (isset($data['categories'])) {
+            $categories = $data['categories'] ?? [];
+            $this->productService->setCategories($product->id, $categories);
+        }
+
         return response()->json($product, 201);
     }
 

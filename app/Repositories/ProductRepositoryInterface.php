@@ -9,4 +9,6 @@ interface ProductRepositoryInterface
     public function create(array $data);
 
     public function delete($id);
+
+    public function setCategories($productId, array $categoryIds);
 }

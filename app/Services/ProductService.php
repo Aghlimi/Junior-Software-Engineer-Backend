@@ -25,4 +25,9 @@ class ProductService
     {
         return $this->productRepository->delete($id);
     }
+
+    public function setCategories($productId, array $categoryIds)
+    {
+        return $this->productRepository->setCategories($productId, $categoryIds);
+    }
 }

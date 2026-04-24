@@ -39,4 +39,16 @@ class ProductRepository implements ProductRepositoryInterface
 
         return true;
     }
+
+    public function setCategories($productId, array $categoryIds)
+    {
+        $product = Products::find($productId);
+        if (! $product) {
+            return false;
+        }
+
+        $product->categories()->sync($categoryIds);
+
+        return true;
+    }
 }
