@@ -18,16 +18,12 @@ class ProductService
 
     public function create(array $data)
     {
-        return $this->productRepository->create($data);
+        $product = $this->productRepository->create($data);
+        return $product;
     }
 
     public function delete($id)
     {
         return $this->productRepository->delete($id);
-    }
-
-    public function setCategories($productId, array $categoryIds)
-    {
-        return $this->productRepository->setCategories($productId, $categoryIds);
     }
 }

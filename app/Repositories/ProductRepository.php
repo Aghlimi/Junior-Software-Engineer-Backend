@@ -25,6 +25,10 @@ class ProductRepository implements ProductRepositoryInterface
             'image' => $data['image'],
         ]);
 
+        if (isset($data['categories'])) {
+            $product->categories()->sync($data['categories']);
+        }
+
         return $product;
     }
 
@@ -36,18 +40,6 @@ class ProductRepository implements ProductRepositoryInterface
         }
 
         $product->delete();
-
-        return true;
-    }
-
-    public function setCategories($productId, array $categoryIds)
-    {
-        $product = Products::find($productId);
-        if (! $product) {
-            return false;
-        }
-
-        $product->categories()->sync($categoryIds);
 
         return true;
     }

@@ -10,5 +10,4 @@ interface ProductRepositoryInterface
 
     public function delete($id);
 
-    public function setCategories($productId, array $categoryIds);
 }
