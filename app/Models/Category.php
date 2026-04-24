@@ -13,13 +13,18 @@ class Category extends Model
     /** @use HasFactory<CategoryFactory> */
     use HasFactory;
 
-    public function ParentCategory()
+    public function parentCategory()
     {
-        return $this->belongsTo(CategoryFactory::class, 'parent_id');
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
-    public function ChildrenCategories()
+    public function childrenCategories()
     {
-        return $this->hasMany(CategoryFactory::class, 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Products::class, 'category_product', 'category_id', 'product_id');
     }
 }
