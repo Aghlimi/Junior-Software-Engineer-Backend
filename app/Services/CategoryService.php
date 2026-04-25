@@ -25,4 +25,9 @@ class CategoryService
     {
         return $this->categoryRepository->setParent($categoryId, $parentId);
     }
+
+    public function delete($categoryId)
+    {
+        return $this->categoryRepository->delete($categoryId);
+    }
 }

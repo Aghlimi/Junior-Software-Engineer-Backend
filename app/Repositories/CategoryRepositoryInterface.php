@@ -9,4 +9,6 @@ interface CategoryRepositoryInterface
     public function create(array $data);
 
     public function setParent($categoryId, $parentId);
+
+    public function delete($categoryId);
 }
