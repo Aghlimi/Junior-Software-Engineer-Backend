@@ -24,7 +24,7 @@ class Products extends Model
         }
 
         return $query->whereHas('categories', function ($q) use ($categoryId) {
-            $q->where('categories.id', $categoryId);
+            $q->where('categories.id', $categoryId)->orWhere('categories.parent_id', $categoryId);
         });
     }
 }

@@ -6,11 +6,14 @@ use App\Models\Products;
 
 class ProductRepository implements ProductRepositoryInterface
 {
-    public function all($sort = false, $filter = null, $page = 1, $perPage = 10)
+    public function all($sort_name = null, $sort_price = null, $category = null, $page = 1, $perPage = 10)
     {
-        $products = Products::getProductsByCategory($filter);
-        if ($sort) {
-            $products = $products->orderBy('price', $sort);
+        $products = Products::getProductsByCategory($category);
+        if ($sort_price === 'asc' || $sort_price === 'desc') {
+            $products = $products->orderBy('price', $sort_price);
+        }
+        if ($sort_name === 'asc' || $sort_name === 'desc') {
+            $products = $products->orderBy('name', $sort_name);
         }
 
         return $products->paginate($perPage, ['*'], 'page', $page);

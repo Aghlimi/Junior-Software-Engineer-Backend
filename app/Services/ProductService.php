@@ -11,9 +11,9 @@ class ProductService
      */
     public function __construct(private ProductRepositoryInterface $productRepository) {}
 
-    public function index($sort = false, $filter = null, $page = 1, $perPage = 10)
+    public function index($sort_name = null, $sort_price = null, $category = null, $page = 1, $perPage = 10)
     {
-        return $this->productRepository->all($sort, $filter, $page, $perPage);
+        return $this->productRepository->all($sort_name, $sort_price, $category, $page, $perPage);
     }
 
     public function create(array $data)

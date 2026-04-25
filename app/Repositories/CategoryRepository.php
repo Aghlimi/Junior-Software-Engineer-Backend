@@ -17,6 +17,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         $category = Category::create([
             'name' => $data['name'],
+            'parent_id' => $data['parent_id'] ?? null,
         ]);
 
         return $category;

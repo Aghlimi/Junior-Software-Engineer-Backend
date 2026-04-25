@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -12,9 +13,15 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->productService->index();
+        $sort_name = $request->query('sort_name');
+        $sort_price = $request->query('sort_price');
+        $category = $request->query('category');
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', 10);
+
+        return $this->productService->index($sort_name, $sort_price, $category, $page, $limit);
     }
 
     /**
