@@ -19,6 +19,7 @@ class ProductService
     public function create(array $data)
     {
         $product = $this->productRepository->create($data);
+
         return $product;
     }
 

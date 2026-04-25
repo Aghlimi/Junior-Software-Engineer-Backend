@@ -10,8 +10,8 @@ use Illuminate\Console\Command;
 use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\text;
 
-#[Signature('app:create-product-command')]
-#[Description('Command description')]
+#[Signature('product:create')]
+#[Description('create a product')]
 class CreateProductCommand extends Command
 {
     function __construct(private ProductService $productService,private CategoryService $categoryService){
@@ -31,7 +31,7 @@ class CreateProductCommand extends Command
             label:'Select categories',
             options:$categoriesSet,
             required: true,
-            );
+        );
         validator([
             'name' => $name,
             'price' => $price,
