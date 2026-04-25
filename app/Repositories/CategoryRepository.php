@@ -26,13 +26,25 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function setParent($categoryId, $parentId)
     {
         $category = Category::find($categoryId);
+        if (! $category) {
+            return false;
+        }
+
         $category->parent_id = $parentId;
         $category->save();
+
+        return true;
     }
 
     public function delete($categoryId)
     {
         $category = Category::find($categoryId);
+        if (! $category) {
+            return false;
+        }
+
         $category->delete();
+
+        return true;
     }
 }

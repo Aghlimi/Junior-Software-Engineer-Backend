@@ -24,6 +24,13 @@ class DeleteCategoryCommand extends Command
     public function handle()
     {
         $categories = $this->categoryService->index()->pluck('name', 'id')->mapWithKeys(fn ($name, $id) => [$id => $name])->toArray();
+
+        if (empty($categories)) {
+            $this->warn('No categories found.');
+
+            return;
+        }
+
         $category = select(
             label: 'Select parent category',
             options: $categories

@@ -27,13 +27,13 @@ class CreateProductCommand extends Command
     {
         $name = text('name', required: true);
         $price = text('price', required: true);
-        $description = text('description', required: true);
+        $description = text('description', required: false);
         $image = text('image url', required: true);
         $categoriesSet = $this->categoryService->index()->pluck('name', 'id')->mapWithKeys(fn ($name, $id) => [$id => $name])->toArray();
         $categories = multiselect(
             label: 'Select categories',
             options: $categoriesSet,
-            required: true,
+            required: false,
         );
         validator([
             'name' => $name,
@@ -42,16 +42,23 @@ class CreateProductCommand extends Command
             'image' => $image,
         ], [
             'name' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'numeric'],
-            'description' => ['required', 'string'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'description' => ['nullable', 'string'],
             'image' => ['required', 'string'],
         ], [
             'name.required' => 'Name is required',
             'price.required' => 'Price is required',
-            'description.required' => 'Description is required',
             'image.required' => 'Image URL is required',
         ])->validate();
-        $this->productService->create(['name' => $name, 'price' => $price, 'description' => $description, 'image' => $image, 'categories' => $categories]);
+
+        $this->productService->create([
+            'name' => $name,
+            'price' => $price,
+            'description' => $description,
+            'image' => $image,
+            'categories' => $categories,
+        ]);
+
         $this->info('Product created successfully');
     }
 }

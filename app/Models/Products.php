@@ -16,15 +16,4 @@ class Products extends Model
     {
         return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id');
     }
-
-    public function scopeGetProductsByCategory($query, $categoryId)
-    {
-        if ($categoryId === null) {
-            return;
-        }
-
-        return $query->whereHas('categories', function ($q) use ($categoryId) {
-            $q->where('categories.id', $categoryId)->orWhere('categories.parent_id', $categoryId);
-        });
-    }
 }

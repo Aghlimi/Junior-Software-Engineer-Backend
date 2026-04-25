@@ -23,7 +23,18 @@ class DeleteProductCommand extends Command
      */
     public function handle()
     {
-        $products = $this->productService->index()->pluck('name', 'id')->mapWithKeys(fn ($name, $id) => [$id => $name])->toArray();
+        $products = $this->productService
+            ->index(null, null, null, null, null)
+            ->pluck('name', 'id')
+            ->mapWithKeys(fn ($name, $id) => [$id => $name])
+            ->toArray();
+
+        if (empty($products)) {
+            $this->warn('No products found.');
+
+            return;
+        }
+
         $selectedProduct = select(
             label: 'Select a product to delete',
             options: $products
