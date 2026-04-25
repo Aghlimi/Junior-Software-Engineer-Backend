@@ -7,6 +7,7 @@ use App\Services\ProductService;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
+
 use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\text;
 
@@ -14,22 +15,24 @@ use function Laravel\Prompts\text;
 #[Description('create a product')]
 class CreateProductCommand extends Command
 {
-    function __construct(private ProductService $productService,private CategoryService $categoryService){
+    public function __construct(private ProductService $productService, private CategoryService $categoryService)
+    {
         parent::__construct();
     }
+
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $name = text('name',required: true);
-        $price = text('price',required: true);
-        $description = text('description',required: true);
-        $image = text('image url',required: true);
-        $categoriesSet = $this->categoryService->index()->pluck('name', 'id')->mapWithKeys(fn($name, $id) => [$id => $name])->toArray();
+        $name = text('name', required: true);
+        $price = text('price', required: true);
+        $description = text('description', required: true);
+        $image = text('image url', required: true);
+        $categoriesSet = $this->categoryService->index()->pluck('name', 'id')->mapWithKeys(fn ($name, $id) => [$id => $name])->toArray();
         $categories = multiselect(
-            label:'Select categories',
-            options:$categoriesSet,
+            label: 'Select categories',
+            options: $categoriesSet,
             required: true,
         );
         validator([
