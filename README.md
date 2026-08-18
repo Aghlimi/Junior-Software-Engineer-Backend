@@ -1,3 +1,4 @@
+> **Note:** I did the old YouCan technical test; to test myself
 # Junior Software Engineer Backend Challenge
 
 Laravel + Vue implementation for product and category management with CLI commands, layered architecture, and product listing features.
